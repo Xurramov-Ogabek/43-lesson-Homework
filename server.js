@@ -6,14 +6,11 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Middleware
 app.use(bodyParser.json());
 
-// Routes
 const userRoutes = require('./routes/users');
 const blogRoutes = require('./routes/blogs');
 
-// Routes uchun middleware
 app.use('/users', userRoutes);
 app.use('/blogs', blogRoutes);
 

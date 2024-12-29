@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const blogsFilePath = path.join(__dirname, '../data/blogs.json');
 
-// Yangi blog yozuvi yaratish (POST)
 exports.createBlog = (req, res) => {
     const { title, content, author } = req.body;
     if (!title || !content || !author) {
@@ -21,7 +20,6 @@ exports.createBlog = (req, res) => {
     });
 };
 
-// Mavjud blog yozuvlarini ko'rish (GET)
 exports.getBlogs = (req, res) => {
     fs.readFile(blogsFilePath, 'utf8', (err, data) => {
         if (err) return res.status(500).send({ message: 'Error reading blogs file.' });
@@ -30,7 +28,6 @@ exports.getBlogs = (req, res) => {
     });
 };
 
-// Blog yozuvini yangilash (PUT)
 exports.updateBlog = (req, res) => {
     const { id, title, content, author } = req.body;
     fs.readFile(blogsFilePath, 'utf8', (err, data) => {
@@ -47,7 +44,6 @@ exports.updateBlog = (req, res) => {
     });
 };
 
-// Blog yozuvini o'chirish (DELETE)
 exports.deleteBlog = (req, res) => {
     const { id } = req.query;
     fs.readFile(blogsFilePath, 'utf8', (err, data) => {

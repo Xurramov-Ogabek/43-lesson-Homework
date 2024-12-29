@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const usersFilePath = path.join(__dirname, '../data/users.json');
 
-// Foydalanuvchini ro'yxatdan o'tkazish (POST)
 exports.registerUser = (req, res) => {
     const { username, password, fullName, age, email, gender } = req.body;
 
@@ -15,7 +14,7 @@ exports.registerUser = (req, res) => {
     if (!age || age < 10) {
         return res.status(400).send({ message: 'Age must be at least 10.' });
     }
-    // User ma'lumotlari
+
     const newUser = { username, password, fullName, age, email, gender };
     fs.readFile(usersFilePath, 'utf8', (err, data) => {
         if (err) return res.status(500).send({ message: 'Error reading users file.' });
@@ -32,7 +31,6 @@ exports.registerUser = (req, res) => {
     });
 };
 
-// Foydalanuvchi profilini ko'rish (GET)
 exports.getUserProfile = (req, res) => {
     const { username, email } = req.query;
     fs.readFile(usersFilePath, 'utf8', (err, data) => {
@@ -44,7 +42,6 @@ exports.getUserProfile = (req, res) => {
     });
 };
 
-// Foydalanuvchi ma'lumotlarini yangilash (PUT)
 exports.updateUserProfile = (req, res) => {
     const { username, password, fullName, age, email, gender } = req.body;
     fs.readFile(usersFilePath, 'utf8', (err, data) => {
@@ -53,7 +50,6 @@ exports.updateUserProfile = (req, res) => {
         const userIndex = users.findIndex(user => user.username === username || user.email === email);
         if (userIndex === -1) return res.status(404).send({ message: 'User not found.' });
 
-        // Foydalanuvchi malumotlarini yangilash
         users[userIndex] = { username, password, fullName, age, email, gender };
         fs.writeFile(usersFilePath, JSON.stringify(users), (err) => {
             if (err) return res.status(500).send({ message: 'Error saving user.' });
@@ -62,7 +58,6 @@ exports.updateUserProfile = (req, res) => {
     });
 };
 
-// Foydalanuvchini o'chirish (DELETE)
 exports.deleteUser = (req, res) => {
     const { username, email } = req.query;
     fs.readFile(usersFilePath, 'utf8', (err, data) => {
@@ -78,40 +73,3 @@ exports.deleteUser = (req, res) => {
         });
     });
 };
-
-// const fs = require('fs');
-// const path = require('path');
-
-// const usersFilePath = path.join(__dirname, '../data/users.json');
-
-// // Foydalanuvchilarni fayldan o'qish
-// function readUsersFromFile() {
-//     const data = fs.readFileSync(usersFilePath);
-//     return JSON.parse(data);
-// }
-
-// // Foydalanuvchi ro'yxatga olish
-// exports.registerUser = (req, res) => {
-//     const { userName, pasvord, fullName, age, email } = req.body;
-
-//     // Kerakli ma'lumotlarni tekshirish
-//     if (!userName || !pasvord || !age || !email) {
-//         return res.status(400).json({ message: 'UserName, Password, Age and Email are required!' });
-//     }
-
-//     const users = readUsersFromFile();
-//     const newUser = {
-//         id: users.length + 1,
-//         userName,
-//         pasvord,
-//         fullName,
-//         age,
-//         email
-//     };
-
-//     // Foydalanuvchini ro'yxatga qo'shish
-//     users.push(newUser);
-//     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-
-//     res.status(201).json(newUser);
-// };
