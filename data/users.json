@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "userName": "Aslbek",
+    "pasvord": "7675",
+    "fullName": "Akbarov Aslbek",
+    "age": 24,
+    "email": "aslbekakbarov12@gmail.com"
+  },
+  {
+    "id": 2,
+    "userName": "Zulfiya",
+    "pasvord": "12345",
+    "fullName": "Zulfiya Zokirova",
+    "age": 22,
+    "email": "zulfiya.zokirova@example.com"
+  }
+]
